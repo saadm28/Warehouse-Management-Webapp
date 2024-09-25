@@ -1,0 +1,43 @@
+{% extends "base.html" %} {% block content %}
+<h1>Register</h1>
+<br />
+<!-- form to register user -->
+<form action="/register" method="POST">
+  <div class="form-group">
+    <label for="name">First Name:</label>
+    <input type="text" class="form-control" name="first-name" id="first-name" required />
+  </div>
+  <div class="form-group">
+    <label for="name">Last Name:</label>
+    <input type="text" class="form-control" name="last-name" id="last-name" required />
+  <div class="form-group">
+    <label for="email">Email:</label>
+    <input type="text" class="form-control" name="email" id="email" required />
+  </div>
+  <div class="form-group">
+    <label for="password">Password:</label>
+    <input
+      type="password"
+      class="form-control"
+      name="password"
+      id="password"
+      required
+    />
+  </div>
+  <div class="form-group">
+    <label for="confirm-password">Confirm Password:</label>
+    <input
+      type="password"
+      class="form-control"
+      name="confirm-password"
+      id="confirm-password"
+      required
+    />
+  </div>
+  <br />
+  <button class="btn btn-dark submit-btn" type="submit" id="add-warehouse-btn">
+    Register
+  </button>
+</form>
+
+{% endblock %}

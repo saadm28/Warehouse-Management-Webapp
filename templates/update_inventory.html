@@ -1,0 +1,61 @@
+{% extends "base.html" %} {% block content %}
+<h1>Update Inventory</h1>
+<br />
+<div class="card">
+  <div class="card-header">
+    <h5 class="card-title">Inventory Details</h5>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-6">
+        <p><strong>Inventory ID:</strong> {{ inventory.id }}</p>
+        <p><strong>Name:</strong> {{ inventory.name }}</p>
+      </div>
+      <div class="col-md-6">
+        <p><strong>Warehouse ID:</strong> {{ inventory.warehouse_id }}</p>
+        <p><strong>Total Stock:</strong> {{ inventory.quantity }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br />
+{% if deplete %}
+<!-- form to add deplete inventory -->
+<form action="{{url_for('deplete_inventory', id=inventory.id)}}" method="POST">
+  <div class="form-group">
+    <label for="quantity">Select Quantity To Deplete</label>
+    <input
+      type="number"
+      class="form-control"
+      name="quantity"
+      id="quantity"
+      min="0"
+      max="{{inventory.quantity}}"
+      required
+    />
+  </div>
+  <br />
+  <button class="btn btn-dark submit-btn" type="submit">Deplete</button>
+  {% else %}
+  <!-- form to add inventory -->
+  <form
+    action="{{url_for('increase_inventory', id=inventory.id)}}"
+    method="POST"
+  >
+    <div class="form-group">
+      <label for="quantity">Select Quantity To Add</label>
+      <input
+        type="number"
+        class="form-control"
+        name="quantity"
+        id="quantity"
+        min="0"
+        required
+      />
+    </div>
+    <br />
+    <button class="btn btn-dark submit-btn" type="submit">Add</button>
+  </form>
+  {% endif %} {% endblock %}
+</form>

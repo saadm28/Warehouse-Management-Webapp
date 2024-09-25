@@ -1,0 +1,37 @@
+{% extends "base.html" %}{% block content %}
+
+<h1>Add Warehouse</h1>
+<br />
+<!-- form to add new warehouse -->
+<form action="/add_warehouse" method="POST">
+  <div class="form-group">
+    <label for="name">Name:</label>
+    <input type="text" class="form-control" name="name" id="name" required />
+  </div>
+  <div class="form-group">
+    <label for="address">Address:</label>
+    <input
+      type="text"
+      class="form-control"
+      name="address"
+      id="address"
+      required
+    />
+  </div>
+  <div class="form-group">
+    <label for="description">Description:</label>
+    <input
+      type="text"
+      class="form-control"
+      name="description"
+      id="description"
+      required
+    />
+  </div>
+  <br />
+  <button class="btn btn-dark submit-btn" type="submit" id="add-warehouse-btn">
+    Add
+  </button>
+</form>
+
+{% endblock %}

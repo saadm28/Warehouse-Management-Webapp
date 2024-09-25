@@ -1,0 +1,47 @@
+{% extends "base.html" %} {% block content %}
+<h1>Add Inventory</h1>
+<!-- form to add inventory -->
+{% if warehouses %}
+<form action="/add_inventory" method="POST">
+  <div class="form-group">
+    <label for="name">Name:</label>
+    <input type="text" class="form-control" name="name" id="name" required />
+  </div>
+  <div class="form-group">
+    <label for="address">Quantity:</label>
+    <input
+      type="Number"
+      class="form-control"
+      name="quantity"
+      id="quantity"
+      required
+    />
+  </div>
+  <div class="form-group">
+    <label for="description">Description:</label>
+    <input
+      type="text"
+      class="form-control"
+      name="description"
+      id="description"
+      required
+    />
+  </div>
+  <div class="form-group">
+    <label for="description">Warehouse ID:</label>
+    <!-- create drop down with all warehouse IDs -->
+    <select class="form-control" name="warehouse_id" id="warehouse_id" required>
+      {% for warehouse in warehouses %}
+      <option value="{{ warehouse.id }}">{{ warehouse.id }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <br />
+  <button class="btn btn-dark submit-btn" type="submit" id="add-warehouse-btn">
+    Add
+  </button>
+</form>
+{% else %}
+<br />
+<h4>No Warehouses Found. Please add a warehouse before adding inventory.</h4>
+{% endif %} {% endblock %}

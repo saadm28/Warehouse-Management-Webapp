@@ -1,0 +1,22 @@
+{% extends "base.html" %} {% block content %}
+<h1>Get Your Access Token</h1>
+<br />
+<form action="{{ url_for('create_token') }}" method="POST">
+  <div class="form-group">
+    <label for="username">Username</label>
+    <input
+      type="text"
+      class="form-control"
+      id="username"
+      name="username"
+      required
+    />
+  </div>
+  <div class="form-group">
+    <label for="email">Email Address</label>
+    <input type="email" class="form-control" id="email" name="email" required />
+  </div>
+  <br />
+  <button type="submit" class="btn btn-dark submit-btn">Generate Token</button>
+</form>
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends "base.html" %} {% block content %}
+<h1>Admin Page</h1>
+
+<!-- flash messages if any -->
+{% with messages = get_flashed_messages() %} {% if messages %}
+<div class="alert alert-info alert-dismissible fade show" role="alert">
+  {% for message in messages %}
+  {{ message }}</p>
+  {% endfor %}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %} {% endwith %}
+<br />
+
+{% if users %}
+<br>
+<h3>Registered Users</h3>
+<!-- create table to display all users info: id, first name, last name, email and buttons to update or delete the user  -->
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Role</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in users %}
+      <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.first_name }}</td>
+        <td>{{ user.last_name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.role.title() }}</td>
+        <td>
+          <div class="d-grid gap-2">
+            <a href="{{  url_for('admin_user', user_id=user.id) }}" class="btn btn-success increase-btn">
+              Update User
+            </a>
+            <a href="{{ url_for('delete_user', user_id=user.id) }}" class="btn btn-danger deplete-btn">
+              Delete User
+            </a>
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<h4>No Users Found.</h4>
+{% endif %}
+
+{% if tokens %}
+<br> <br>
+<h3>Generated Tokens</h3>
+<!-- create table to display all tokens info: id, token, user_name, user_email and a button to delete the token  -->
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>User Name</th>
+        <th>User Email</th>
+        <th>Token</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for token in tokens %}
+      <tr>
+        <td>{{ token.id }}</td>
+        <td>{{ token.user_name }}</td>
+        <td>{{ token.user_email }}</td>
+        <td>
+          {{ token.token[37:88] + '...' }}<a style=" text-decoration: none; color: black;" href="{{ url_for('token', token=token.token) }}">(show token)</a>
+        </td>
+        <td>
+          <a href="{{ url_for('delete_token', token_id=token.id) }}" class="btn btn-danger submit-btn">
+            Delete Token
+          </a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+
+{% endif %}
+{% endblock %}

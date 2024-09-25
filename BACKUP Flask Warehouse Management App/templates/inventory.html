@@ -1,0 +1,81 @@
+{% extends "base.html" %} {% block content %}
+<h1>Inventory</h1>
+
+<!-- flash messages if any -->
+{% with messages = get_flashed_messages() %} {% if messages %}
+<div class="alert alert-info alert-dismissible fade show" role="alert">
+  {% for message in messages %}
+  {{ message }}</p>
+  {% endfor %}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %} {% endwith %}
+
+<br />
+{% if inventories %}
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Description</th>
+        <th>Warehouse</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- if there is a warehouse id passed only display inventory for that warehouse -->
+      {% if warehouse_id > 0 %}
+    {% for inventory in inventories %}
+    {% if inventory.warehouse_id == warehouse_id %}
+      <tr>
+        <td>{{ inventory.id }}</td>
+        <td>{{ inventory.name }}</td>
+        <td>{{ inventory.quantity }}</td>
+        <td>{{ inventory.description }}</td>
+        <td>{{ inventory.warehouse_id }}</td>
+        <td>
+          <div class="d-grid gap-2">
+            <button class="btn btn-success increase-btn">
+              <a href="{{ url_for('increase_inventory', id=inventory.id)}}">Add Stock</a> 
+            </button>
+            <button class="btn btn-danger deplete-btn">
+              <a href="{{ url_for('deplete_inventory', id=inventory.id)}}">Deplete Stock</a>
+            </button>
+          </div>
+        </td>
+      </tr>
+    {% endif %}
+  {% endfor %}
+{% else %}
+  {% for inventory in inventories %}
+    <tr>
+      <td>{{ inventory.id }}</td>
+      <td>{{ inventory.name }}</td>
+      <td>{{ inventory.quantity }}</td>
+      <td>{{ inventory.description }}</td>
+      <td>{{ inventory.warehouse_id }}</td>
+      <td>
+        <div class="d-grid gap-2">
+          <button class="btn btn-success increase-btn">
+            <a href="{{ url_for('increase_inventory', id=inventory.id)}}">Add Stock</a> 
+          </button>
+          <button class="btn btn-danger deplete-btn">
+            <a href="{{ url_for('deplete_inventory', id=inventory.id)}}">Deplete Stock</a>
+          </button>
+        </div>
+      </td>
+    </tr>
+  {% endfor %}
+{% endif %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<h4>No inventory found.</h4>
+{% endif %}
+<br />
+<a href="{{ url_for('add_inventory') }}"><button class="btn btn-dark submit-btn">Add New Inventory</button></a>
+</button>
+{% endblock %}

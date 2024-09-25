@@ -1,0 +1,28 @@
+{% extends "base.html" %} {% block content %}
+
+<!-- flash messages if any -->
+{% with messages = get_flashed_messages() %} {% if messages %}
+<div class="alert alert-info alert-dismissible fade show" role="alert">
+  {% for message in messages %}
+  {{ message }}</p>
+  {% endfor %}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %} {% endwith %}
+<br />
+
+<!-- Home Page Content -->
+<div class="jumbotron jumbotron-fluid text-center main-title-block">
+  <div class="container">
+    <h1 class="display-3 mb-3">Welcome!</h1>
+    <p class="lead">Please choose to register or login below:</p>
+    <div class="btn-group justify-content-center" role="group">
+      <a href="{{ url_for('register') }}" class="btn btn-outline-dark btn-lg mr-2">Register</a>
+      <a href="{{ url_for('login') }}" class="btn btn-outline-success btn-lg">Login</a>
+    </div>
+  </div>
+</div>
+  
+  
+  
+{% endblock %}
